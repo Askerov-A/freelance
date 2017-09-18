@@ -1,0 +1,16 @@
+<form method="POST" action="login">
+  <h3>Войти в аккаунт</h3>
+  {% csrf_token %}
+  <input type="text" name="work_title" placeholder="Тема для работы"/>
+  <select name="work_category">
+    {% for category in categories %}
+      <option value="{{category.id}}">{{category.category_name}}</option>
+    {% endfor %}
+  </select>
+  <textarea name="work_content" placeholder="Содержание работы">
+
+  </textarea>
+  
+  <input type="password" name="password" placeholder="Пароль"/>
+  <input type="submit" value="Войти">
+</form>

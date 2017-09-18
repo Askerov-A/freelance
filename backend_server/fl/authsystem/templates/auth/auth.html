@@ -1,0 +1,16 @@
+<form method="POST" action="login">
+  <h3>Войти в аккаунт</h3>
+  {% csrf_token %}
+  <span class="message">{{message}}</span>
+  <input type="text" name="name" placeholder="Логин"/>
+  <input type="password" name="password" placeholder="Пароль"/>
+  <input type="submit" value="Войти">
+</form>
+<form method="POST" action="register">
+  <h3>Зарегистрироваться</h3>
+  {% csrf_token %}
+  <input type="text" name="name" placeholder="Логин"/>
+  <input type="text" name="email" placeholder="Электронная почта"/>
+  <input type="password" name="password" placeholder="Пароль"/>
+  <input type="submit" value="Войти">
+</form>

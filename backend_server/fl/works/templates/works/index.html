@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{title}}</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding-top: 60px;
+      background: #f1f1f1;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: block;
+      background: #999;
+      padding: 20px;
+      box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2);
+      color: #fff;
+    }
+    header .header_links {
+      display: inline-block;
+      margin: 0;
+    }
+    header .header_links li {
+      list-style: none;
+      display: inline-block;
+      padding: 20px;
+      margin-top: -20px;
+      margin-bottom: -20px;
+      color: #fff;
+      transition: 0.2s;
+    }
+    header .header_links li:hover {
+      background: #bbb;
+    }
+    header .user_info {
+      position: absolute;
+      right: 60px;
+    }
+    main {
+      width: 70%;
+      display: inline-block;
+    }
+    aside {
+      width: 29%;
+      display: inline-block;
+      position: relative;
+    }
+    .panel {
+      background: #fff;
+      box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2);
+      width: 250px;
+      min-height: 100px;
+      vertical-align: top;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+      margin: 10px;
+    }
+    .work_item .work_title {
+      margin: 0 0 10px;
+    }
+    .work_item .work_category, .work_item .work_employee {
+      font-size: 15px;
+    }
+    .work_item .work_read_more {
+      display: inline-block;
+    }
+    .categories {
+      width: 100%;
+      position: absolute;
+      right: 0;
+      padding: 20px 0;
+    }
+    .categories ul {
+      margin: 0;
+      padding: 0;
+    }
+    .category_link {
+      text-decoration: none;
+      color: #000;
+      transition: 0.3s;
+    }
+
+    .category_link li {
+      list-style: none;
+      padding: 15px;
+    }
+
+    .category_link li:hover {
+      background: #999;
+      color: #fff;
+    }
+
+    .category_link.active li {
+      background: #ccc;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="logo">
+      FREELANCE
+    </span>
+    <ul class="header_links">
+      {% if user %}
+        <a href="#"><li>Создать работу</li></a>
+      {% endif %}
+    </ul>
+    <span class="user_info">
+      {% if user %}
+        Привет, {{user}}
+        <a href="/auth/logout"> Выход</a>
+      {% else %}
+        <a href="/auth">Войти</a>
+      {% endif %}
+    </span>
+  </header>
+  <main>
+  {% for work in works %}
+  <div class="panel work_item">
+    <h3 class="work_title">{{work.work_title}}</h3>
+    <span class="work_category">{{work.work_category}} | </span>
+    <a href="#"><span class="work_employee">{{work.work_employee}}</span></a>
+    <p>
+      {{work.work_content}}
+    </p>
+    <a class="work_read_more" href="/works/categories/{{work.work_category.category_slug}}/{{work.id}}">See</a>
+  </div>
+  {% endfor %}
+  </main>
+  <aside>
+    <div class="panel categories">
+      <ul>
+        {% for category in categories %}
+          <a href="/works/categories/{{category.category_slug}}" class="
+          {% if title == category.category_name %}
+            active
+          {% endif %}
+          category_link"><li>{{category.category_name}}</li></a>
+        {% endfor %}
+      </ul>
+    </div>
+  </aside>
+</body>
+</html>
